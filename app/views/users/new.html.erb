@@ -1,3 +1,35 @@
+<% if @user.errors.any? %>
+  <div>
+    <h3><%= pluralize(@user.errors.count, "error") %> prohibited this user from being created:</h3>
+    <ul>
+      <% @user.errors.each do |error| %>
+        <li><%= error.full_message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: @user) do |form| %>
+  <div>
+    <%= form.label :email, "E-mail:" %>
+    <%= form.email_field :email, placeholder: 'example@example.com' %>
+  </div>
+
+  <div>
+    <%= form.label :username, "Username:" %>
+    <%= form.text_field :username %>
+  </div>
+
+  <div>
+    <%= form.label :password, "Password:" %>
+    <%= form.password_field :password %>
+  </div>
+
+  <%= form.submit %>
+<% end %>
+
+<%# ATTENTION: this was a learning exercise to see the evolution of and the way rails form helpers work. These two methods below were part of that exercise so i'm saving for reference. %>
+
 <%# <form action="/users" method="post" accept-charset="UTF-8">
   <input type="hidden" name="authenticity_token">
   <label for="email">Email:</label>
@@ -11,6 +43,7 @@
   <br>
   <input type="submit" name="commit">
 </form> %>
+
 
 <% if false %> 
 <%# this is apparently the way to do multi-line erb comments ^^ if false. %>
@@ -26,17 +59,4 @@
   <br>
   <%= submit_tag("Create User") %>
 <% end %>
-<% end %>
-
-<%= form_with(model: @user) do |form| %>
-  <%= form.label :email, "E-mail:" %>
-  <%= form.email_field :email, placeholder: 'example@example.com' %>
-  <br>
-  <%= form.label :username, "Username" %>
-  <%= form.text_field :username %>
-  <br>
-  <%= form.label :password, "Password" %>
-  <%= form.password_field :password %>
-  <br>
-  <%= form.submit %>
 <% end %>
